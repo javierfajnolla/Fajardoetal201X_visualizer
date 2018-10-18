@@ -32,9 +32,9 @@ navbarPage("Fajardo et al., (2019) VISUALIZER", id="nav",
                                       h2("Priority areas explorer"),
                                       
                                       selectInput("solution", "Layer to show", 
-                                                  c("Only present" = "pre",
-                                                    "Present and RCP 4.5" = "pre45",
-                                                    "Present and RCP 8.5" = "pre85")),
+                                                  c("Represent sp in present" = "pre",
+                                                    "Represent sp in present and RCP 4.5" = "pre45",
+                                                    "Represent sp in present and RCP 8.5" = "pre85")),
                                       
                                       hr(),
                                       

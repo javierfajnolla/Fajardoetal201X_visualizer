@@ -1,19 +1,25 @@
 library(raster)
 library(rgdal)
 
-solutions <- stack(
-  raster("../../_results/prioritization/intermediate_data/pu_0833/problems_allsp/results/pre_RASTER_bmat_halftg.tif"),
-  raster("../../_results/prioritization/intermediate_data/pu_0833/problems_allsp/results/pre45_RASTER_bmat_halftg.tif"),
-  raster("../../_results/prioritization/intermediate_data/pu_0833/problems_allsp/results/pre85_RASTER_bmat_halftg.tif")
-  )
-names(solutions) <- c("pre", "pre45", "pre85")
+# Load data to display
+# solutions <- stack(
+#   raster("../../_results/prioritization/intermediate_data/pu_0833/problems_allsp/results/pre_RASTER_bmat_halftg.tif"),
+#   raster("../../_results/prioritization/intermediate_data/pu_0833/problems_allsp/results/pre45_RASTER_bmat_halftg.tif"),
+#   raster("../../_results/prioritization/intermediate_data/pu_0833/problems_allsp/results/pre85_RASTER_bmat_halftg.tif")
+#   )
+solutions <- list.files("data/solutions", full.names = T) %>% 
+  purrr::map(readRDS) %>% 
+  stack %>% 
+  setNames(c("pre", "pre45", "pre85"))
 
-# NA value to not selected sites, so these sites are shown as transparent
+
+# Set NA value to not selected sites, so these sites are shown as transparent
 solutions <- solutions %>% as.list %>% 
   purrr::map(~.x %>% reclassify(tibble(is = 0, becomes = NA))) %>% 
   purrr::map(~.x %>% trim)
 
-
+# Load other data to display
+## Study area borders
 TAC_border <- readOGR("data/SIG", "PAT_simplified")
 
 # library(dplyr)
