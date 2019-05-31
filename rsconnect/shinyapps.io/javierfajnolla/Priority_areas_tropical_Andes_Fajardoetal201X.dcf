@@ -5,8 +5,8 @@ account: javierfajnolla
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 521882
-bundleId: 1649897
+bundleId: 1649908
 url: https://javierfajnolla.shinyapps.io/Priority_areas_tropical_Andes_Fajardoetal201X/
-when: 1539881976.30159
+when: 1539882262.70546
 asMultiple: FALSE
 asStatic: FALSE

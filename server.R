@@ -30,9 +30,9 @@ function(input, output, session) {
     leaflet(TAC_border) %>% 
       addTiles() %>%
       addProviderTiles("Esri.WorldPhysical", group = "Relieve") %>%
-      addTiles(options = providerTileOptions(noWrap = TRUE), group = "Countries") %>%
-      addLayersControl(baseGroups = c("Relieve", "Countries"),
-                       options = layersControlOptions(collapsed = FALSE)) %>% 
+      # addTiles(options = providerTileOptions(noWrap = TRUE), group = "Countries") %>%
+      # addLayersControl(baseGroups = c("Relieve", "Countries"),
+      #                  options = layersControlOptions(collapsed = FALSE)) %>% 
       setView(lng = -80, lat = -5, zoom = 4.5) %>% 
       addPolygons(weight = 1,
                   fillOpacity = 0,
@@ -60,9 +60,10 @@ function(input, output, session) {
     #                     reverse = TRUE)
     
     ## For a discrete raster (1 - 0)
-    if(input$color == "blue") display_color <- "#0069a8"
-    if(input$color == "red") display_color <- "#8E113F"
-    if(input$color == "green") display_color <- "#1AB256"
+    # if(input$color == "blue") display_color <- "#0069a8"
+    # if(input$color == "red") display_color <- "#8E113F"
+    # if(input$color == "green") display_color <- "#1AB256"
+    display_color <- "#0069a8"
     
     pal <- colorNumeric(palette = display_color,
                         # domain = range_values,  # Continuous rasters

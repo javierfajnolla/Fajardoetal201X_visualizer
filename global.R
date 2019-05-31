@@ -23,6 +23,8 @@ solutions <- solutions %>% as.list %>%
 ## Study area borders
 TAC_border <- readOGR("data/SIG", "PAT_simplified")
 
+# PAs_TAC <- readOGR("")
+
 # library(dplyr)
 # 
 # allzips <- readRDS("data/superzip.rds")
