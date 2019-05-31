@@ -11,7 +11,7 @@ vars <- c(
 )
 
 
-navbarPage("Priority Conservation Areas for species representation in tropical Andean Countries", id="nav",
+navbarPage("", id="nav",
            
            tabPanel("Interactive map",
                     div(class="outer",
@@ -28,21 +28,27 @@ navbarPage("Priority Conservation Areas for species representation in tropical A
                         # Shiny versions prior to 0.11 should use class = "modal" instead.
                         absolutePanel(id = "controls", class = "panel panel-default", fixed = TRUE,
                                       draggable = TRUE, top = 60, left = 60, right = "auto", bottom = "auto",
-                                      width = 330, height = "auto",
+                                      width = 400, height = "auto",
                                       
                                       h2("Priority conservation areas in Tropical Andean Countries"),
                                       
                                       hr(),
                                       
-                                      selectInput("solution", "Priority areas to represent species in:", selected = "pre85",
+                                      radioButtons("solution", "Priority areas to represent species in:", 
+                                                   selected = "pre85",
                                                   c("Present scenario" = "pre",
                                                     "Present and RCP 4.5" = "pre45",
                                                     "Present and RCP 8.5" = "pre85")),
                                       
+                                      # selectInput("solution", "Priority areas to represent species in:", selected = "pre85",
+                                      #             c("Present scenario" = "pre",
+                                      #               "Present and RCP 4.5" = "pre45",
+                                      #               "Present and RCP 8.5" = "pre85")),
+                                      # 
                                       hr(),
                                       
                                       sliderInput("opacity", "Transparency:",
-                                                  min = 0, max = 1, step = 0.1, value = 1),
+                                                  min = 0, max = 1, step = 0.1, value = 0.5),
                                       hr(),
                                       
                                       # selectInput("color", "Choose a color palette",
@@ -66,7 +72,7 @@ navbarPage("Priority Conservation Areas for species representation in tropical A
                         ),
                         
                         tags$div(id="cite",
-                                 "Javier Fajardo (2019) PhD Thesis, Chapter IV, UIMP")
+                                 "Javier Fajardo (2019) A crucial time to balance protected-area networks in the tropical Andean countries. Chapter III, Optimizing the design of protected area networks in tropical Andean countries. PhD Thesis, UIMP")
                     )
            ),
            

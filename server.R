@@ -26,18 +26,33 @@ function(input, output, session) {
   #     setView(lng = -80, lat = -5, zoom = 4.5)
   # })
   
+  
   output$map <- renderLeaflet({
-    leaflet(TAC_border) %>% 
-      addTiles() %>%
+    leaflet() %>% 
+      # addTiles() %>%
       addProviderTiles("Esri.WorldPhysical", group = "Relieve") %>%
       # addTiles(options = providerTileOptions(noWrap = TRUE), group = "Countries") %>%
       # addLayersControl(baseGroups = c("Relieve", "Countries"),
       #                  options = layersControlOptions(collapsed = FALSE)) %>% 
       setView(lng = -80, lat = -5, zoom = 4.5) %>% 
-      addPolygons(weight = 1,
+      addMapPane("borders", zIndex = 410) %>% 
+      # addMapPane("borders", zIndex = 420) %>% 
+      addPolygons(data = TAC_border,
+                  options = pathOptions(pane = "borders"),
+                  weight = 2,
                   fillOpacity = 0,
-                  opacity = 0.5,
-                  color = "#595959")
+                  opacity = 0.8,
+                  color = "#595959") %>% 
+      addPolygons(data = PAs,
+                  options = pathOptions(pane = "borders"),
+                  weight = 2,
+                  fillOpacity = 0.5,
+                  opacity = 1,
+                  color = "#595959",
+                  # label = ~paste0(category, " ", name, " \n Network: ", level)) %>% 
+                  label = ~paste0(category, " ", name, " - Network: ", level)) %>% 
+      clearControls()
+      
   })
   
   # Create map proxy to make further changes to existing map
@@ -65,11 +80,11 @@ function(input, output, session) {
     # if(input$color == "green") display_color <- "#1AB256"
     display_color <- "#0069a8"
     
-    pal <- colorNumeric(palette = display_color,
-                        # domain = range_values,  # Continuous rasters
-                        domain = c(0,1),
-                        na.color = "transparent",
-                        reverse = TRUE)
+    # pal <- colorNumeric(palette = display_color,
+    #                     # domain = range_values,  # Continuous rasters
+    #                     domain = c(0,1),
+    #                     na.color = "transparent",
+    #                     reverse = TRUE)
     
     
     # Overlay the selected raster
@@ -80,19 +95,29 @@ function(input, output, session) {
       map %>% 
         clearControls() %>%    # Refreshes the legend
         clearGroup("solutions") %>%
-        fitBounds(lng1 = extent(solutions[[1]])[1],    # zoom to raster extent
-                  lat1 = extent(solutions[[1]])[3], 
-                  lng2 = extent(solutions[[1]])[2], 
-                  lat2 = extent(solutions[[1]])[4]) %>% 
-        addRasterImage(solutions[[1]],
-                       colors = pal,
-                       opacity = input$opacity,
-                       group = "solutions") %>%
-        addLegend(pal = pal, 
-                  # values = range_values,  # Continuous rasters
-                  values = c(0,1),
-                  group = "solutions",
-                  labFormat = labelFormat(transform = function(x) sort(x, decreasing = TRUE)))
+        clearGroup("borders") %>%
+        # addMapPane("solutionss", zIndex = 500) %>% 
+        # addMapPane("borders", zIndex = 430) %>% 
+        # fitBounds(lng1 = extent(solutions[[1]])[1],    # zoom to raster extent
+        #           lat1 = extent(solutions[[1]])[3], 
+        #           lng2 = extent(solutions[[1]])[2], 
+        #           lat2 = extent(solutions[[1]])[4]) %>% 
+        addPolygons(data = sol1,
+                    group = "solutions",
+                    # options = pathOptions(pane = "solutionss"),
+                    weight = 1,
+                    fillOpacity = input$opacity,
+                    opacity = input$opacity,
+                    color = "#E5323F") #%>% 
+        # addRasterImage(solutions[[1]],
+        #                colors = pal,
+        #                opacity = input$opacity,
+        #                group = "solutions") %>%
+        # addLegend(pal = pal, 
+        #           # values = range_values,  # Continuous rasters
+        #           values = c(0,1),
+        #           group = "solutions",
+        #           labFormat = labelFormat(transform = function(x) sort(x, decreasing = TRUE)))
       
       # Prepare layer to download
       output$download_solution <- downloadHandler(
@@ -115,19 +140,26 @@ function(input, output, session) {
       map %>% 
         clearControls() %>%    # Refreshes the legend
         clearGroup("solutions") %>%
-        fitBounds(lng1 = extent(solutions[[2]])[1],    # zoom to raster extent
-                  lat1 = extent(solutions[[2]])[3], 
-                  lng2 = extent(solutions[[2]])[2], 
-                  lat2 = extent(solutions[[2]])[4]) %>% 
-        addRasterImage(solutions[[2]],
-                       colors = pal,
-                       opacity = input$opacity,
-                       group = "solutions") %>%
-        addLegend(pal = pal, 
-                  # values = range_values,  # Continuous rasters
-                  values = c(0,1),
-                  group = "solutions",
-                  labFormat = labelFormat(transform = function(x) sort(x, decreasing = TRUE)))
+        # fitBounds(lng1 = extent(solutions[[2]])[1],    # zoom to raster extent
+        #           lat1 = extent(solutions[[2]])[3], 
+        #           lng2 = extent(solutions[[2]])[2], 
+        #           lat2 = extent(solutions[[2]])[4]) %>% 
+        addPolygons(data = sol2,
+                    group = "solutions",
+                    # options = pathOptions(pane = "solutionss"),
+                    weight = 1,
+                    fillOpacity = input$opacity,
+                    opacity = input$opacity,
+                    color = "#E5323F") #%>% 
+        # addRasterImage(solutions[[2]],
+        #                colors = pal,
+        #                opacity = input$opacity,
+        #                group = "solutions") %>%
+        # addLegend(pal = pal, 
+        #           # values = range_values,  # Continuous rasters
+        #           values = c(0,1),
+        #           group = "solutions",
+        #           labFormat = labelFormat(transform = function(x) sort(x, decreasing = TRUE)))
       
       # Prepare layer to download
       output$download_solution <- downloadHandler(
@@ -149,19 +181,26 @@ function(input, output, session) {
       map %>% 
         clearControls() %>%    # Refreshes the legend
         clearGroup("solutions") %>%
-        fitBounds(lng1 = extent(solutions[[3]])[1],    # zoom to raster extent
-                  lat1 = extent(solutions[[3]])[3], 
-                  lng2 = extent(solutions[[3]])[2], 
-                  lat2 = extent(solutions[[3]])[4]) %>% 
-        addRasterImage(solutions[[3]],
-                       colors = pal,
-                       opacity = input$opacity,
-                       group = "solutions") %>%
-        addLegend(pal = pal, 
-                  # values = range_values,  # Continuous rasters
-                  values = c(0,1),
-                  group = "solutions",
-                  labFormat = labelFormat(transform = function(x) sort(x, decreasing = TRUE)))
+        # fitBounds(lng1 = extent(solutions[[3]])[1],    # zoom to raster extent
+        #           lat1 = extent(solutions[[3]])[3], 
+        #           lng2 = extent(solutions[[3]])[2], 
+        #           lat2 = extent(solutions[[3]])[4]) %>% 
+        addPolygons(data = sol3,
+                    group = "solutions",
+                    # options = pathOptions(pane = "solutionss"),
+                    weight = 1,
+                    fillOpacity = input$opacity,
+                    opacity = input$opacity,
+                    color = "#E5323F") #%>% 
+        # addRasterImage(solutions[[3]],
+        #                colors = pal,
+        #                opacity = input$opacity,
+        #                group = "solutions") %>%
+        # addLegend(pal = pal, 
+        #           # values = range_values,  # Continuous rasters
+        #           values = c(0,1),
+        #           group = "solutions",
+        #           labFormat = labelFormat(transform = function(x) sort(x, decreasing = TRUE)))
       
       # Prepare layer to download
       output$download_solution <- downloadHandler(

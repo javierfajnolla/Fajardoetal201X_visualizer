@@ -1,0 +1,37 @@
+---
+title: "Intro_main"
+author: "Javier Fajardo"
+# date: "21/5/2018"
+output: html_fragment
+---
+
+### Viewer for Priority Conservation Areas for the representation of vertebrate and plant species in the tropical Andean countries
+
+This app is a viewer for the results presented in *chapter III* of the PhD Thesis entitled "Optimizing the design of protected area networks in tropical Andean countries" and submmited by <a href = "https://scholar.google.es/citations?user=L30b63UAAAAJ&hl=es" target = "_blank">Javier Fajardo</a> to Universidad Internacional Menéndez Pelayo (UIMP), Spain.
+
+This viewer is intended at facilitating the visualization and interaction with the results of this research. It is possible to download all the results in raster format, so they can be freely accesed by any person interested.
+
+Priority areas were identified using the <a href = "https://prioritizr.net/" target = "_blank">Prioritizr</a> software in R. The set of conservation features used as part of the spatial prioritization was composed by 16,510 species of vertebrates and plants. There are three different portfolios of priority areas identified: (1) aiming at representing species at their current potential distributions, (2) aiming at representing species both at their current potential distributions and at forecasted distributions in 2070 according to climate change scenario RCP 4.5, and (3) aiming at representing species both at their current potential distributions and at forecasted distributions in 2070 according to climate change scenario RCP 8.5. 
+
+Please, refer to Chapter III in the PhD Tesis for further details. The thesis can be read here: <a href = "https://drive.google.com/file/u/1/d/1nen0UBMqzamBu8Hu0_wB9uiaz0EAscDM/view?usp=drive_fs" target = "_blank">Fajardo J - PhD Thesis UIMP</a>
+
+
+
+#### Citation  
+Please, use the following citation if you need to cite this viewer:  
+
+>Fajardo, J (2019)  Viewer of Priority Conservation Areas - A crucial time to balance protected-area networks in the tropical Andean countries (Chapter III). In "Optimizing the design of protected area networks in tropical Andean countries". PhD Thesis. Universidad Internacional Menendez Pelayo.
+  
+***
+  
+#### Code for viewer
+This viewer is open source and may be used by anyone to share their own data. Please, feel free to read and reuse the source code, which may be found here:
+
+https://github.com/javierfajnolla/Fajardoetal201X_visualizer
+  
+***
+  
+#### Contact
+Please, email fj.fajardo@posgrado.uimp.es with any question or comment.
+  
+***
